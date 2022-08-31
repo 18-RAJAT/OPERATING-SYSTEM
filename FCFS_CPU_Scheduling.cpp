@@ -289,7 +289,7 @@ void solve()
     int n,burstTime[1001],waitingTime[1001],turnAroundTime[1001],averageWaitingTime=0,averageTurnAroundTime=0,i,j;
     waitingTime[0]=0;
     cin>>n;
-    cout<<"\nTotal number of processes:"<<n<<nl;
+    cout<<nl<<"Total number of processes:"<<n<<nl;
     f1(i,0,n){cin>>burstTime[i];}
 
     //display gantt chart
@@ -297,7 +297,7 @@ void solve()
     f1(i,0,n){cout<<"\tp["<<i+1<<"]";}
 
     //calculating waiting time
-    cout<<"\n\n\t ";
+    cout<<nl<<nl<<"t ";
     f1(i,0,n)
     {
         waitingTime[i]=0;
@@ -315,7 +315,7 @@ void solve()
         averageWaitingTime+=waitingTime[i];
         averageTurnAroundTime+=turnAroundTime[i];
 
-        cout<<"\nP["<<i+1<<"]"<<"\t\t"<<burstTime[i]<<"\t\t"<<waitingTime[i]<<"\t\t"<<turnAroundTime[i];
+        cout<<nl<<"P["<<i+1<<"]"<<"\t\t"<<burstTime[i]<<"\t\t"<<waitingTime[i]<<"\t\t"<<turnAroundTime[i];
     }
 
     //calculating average of waiting time and turnaround time
