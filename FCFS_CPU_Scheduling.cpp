@@ -386,7 +386,6 @@ void solve()
             waitingTime[i]+=burstTime[i];
         cout<<"\t  "<<waitingTime[i];
     }
-
     cout<<nl<<nl<<"Process\t\tBT   \tWT    \tTAT";
 
     //calculating turn-around time
