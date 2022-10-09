@@ -49,4 +49,4 @@ int main()
 	for(i=0;i<n;i++)
 	printf("\t%d \t %d \t\t %d \t\t %d \n",i+1,ct[i],wa[i],tat[i]);
 	getch();
-} 
+}
