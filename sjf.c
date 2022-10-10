@@ -17,7 +17,7 @@ int main()
         scanf("%d",&bt[i]);
         process[i]=i+1;
     }
-    
+
     //sorting the bt
     for(int i=0;i<n;++i)
     {

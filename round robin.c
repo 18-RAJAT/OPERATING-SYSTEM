@@ -10,7 +10,7 @@ int main()
     printf("Enter the process: ");
     scanf("%d",&n);
     x=n;
-    for(int i=0;i<n;++i)
+    for(i=0;i<n;++i)
     {
 	    printf("Enter arrival time: ");
 	    scanf("%d",&at[i]);
