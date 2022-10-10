@@ -4,7 +4,7 @@
 
 int main()
 {
-    int bt[101],process[101],wt[101],tat[101],total=0,n,pos,temp;
+    int bt[101],process[101],ct[101],wt[101],tat[101],total=0,n,pos,temp;
     float avgWt,avgTat;
     
     printf("Enter the number of process\n");
@@ -19,6 +19,12 @@ int main()
     }
 
     //sorting the bt
+    for(int j=0;j<n;j++)
+	{
+		total+=bt[j];
+		ct[j]+=total;
+	}
+
     for(int i=0;i<n;++i)
     {
         pos=i;
@@ -46,14 +52,14 @@ int main()
     }
     avgWt=(float)total/n;
     total=0;
-    printf("\nProcess\t    Burst Time    \tWaiting Time\tTurnaround Time");
+    printf("\nProcess\t    Burst Time\t    completion time \tWaiting Time\tTurnaround Time");
     
     for(int i=0;i<n;++i)
     {
         tat[i]=bt[i]+wt[i];
         total+=tat[i];
         
-        printf("\np%d\t\t  %d\t\t    %d\t\t\t%d",process[i],bt[i],wt[i],tat[i]);
+        printf("\np%d\t\t  %d\t\t  %d\t\t  %d\t\t\t%d",process[i],bt[i],wt[i],tat[i]);
     }
     avgTat=(float)total/n;
     printf("\n");
