@@ -2,6 +2,7 @@
 #include<stdlib.h>
 #include<math.h>
 
+
 int main()
 {
     int at[10],bt[10],rt[10],et,i,smallest;

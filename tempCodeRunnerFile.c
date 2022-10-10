@@ -1,52 +1,50 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<conio.h>
+#include<math.h>
+
 
 int main()
 {
-	int i,j,n,bu[10],wa[10],tat[10],t,ct[10],max;
-	float awt=0,att=0,temp=0;
-	system("clear");
-	printf("Enter the process -- ");
-	scanf("%d",&n);
-	for(i=0;i<n;i++)
-	{
-		printf("\nEnter Burst Time for process %d -- ", i+1);
-		scanf("%d",&bu[i]);
-		ct[i]=bu[i];
-	}
-	printf("\nEnter the size of time slice -- ");
-	scanf("%d",&t);
-	max=bu[0];
-	for(i=1;i<n;i++)
-		if(max<bu[i])
-			max=bu[i];
-            int tp=max/t;
-	for(j=0;j<tp+1;j++)
-		for(i=0;i<n;i++)
-			if(bu[i]!=0)
-				if(bu[i]<=t)
-				{
-					tat[i]=temp+bu[i];
-					temp=temp+bu[i];
-					bu[i]=0;
-				}
-				else
-				{
-					bu[i]=bu[i]-t;
-					temp=temp+t;
-				}
-	for(i=0;i<n;i++)
-	{
-		wa[i]=tat[i]-ct[i];
-		att+=tat[i];
-		awt+=wa[i];
-	}
-	printf("\nThe Average Turnaround time is   %f",att/n);
-	printf("\nThe Average Waiting time is      %f",awt/n);
-	printf("\n");
-	printf("\n\tPROCESS\t BURST TIME \t WAITING TIME\tTURNAROUND TIME\n");
-	for(i=0;i<n;i++)
-	printf("\t%d \t %d \t\t %d \t\t %d \n",i+1,ct[i],wa[i],tat[i]);
-	getch();
+    int at[10],bt[10],rt[10],et,i,smallest;
+    int remain=0,n,time,wt=0,tat=0;
+
+    printf("Enter no of processes : ");
+    scanf("%d",&n);
+
+    for(int i=0;i<n;++i)
+    {
+        printf("Arrival time process process[%d] : ",i+1);
+        scanf("%d",&at[i]);
+
+        printf("Burst time process[%d] : ",i+1);
+        scanf("%d",&bt[i]);
+
+        rt[i]=bt[i];
+    }
+    printf("\n\nProcess\t|Turnaround Time| Waiting Time\n\n");
+    rt[9]=9999;
+    for(time=0;remain!=n;time++)
+    {
+        smallest=9;
+
+        for(int i=0;i<n;++i)
+        {
+            if(at[i]<=time && rt[i]<rt[smallest] && rt[i]>0)
+            {
+                smallest=i;
+            }
+        }
+        rt[smallest]--;
+        if(rt[smallest]==0)
+        {
+            remain++;
+            et=time+1;
+            printf("P[%d]\t|\t%d\t|\t%d\n",smallest+1,et-at[smallest],et-at[smallest]-bt[smallest]);
+
+            wt+=et-bt[smallest]-at[smallest];
+            tat+=et-at[smallest];
+        }
+    }
+    printf("\nAverage Waiting Time= %f\n",wt*1.0/n);
+    printf("Avg Turnaround Time = %f",tat*1.0/n);
 }
