@@ -2,49 +2,66 @@
 #include<stdlib.h>
 #include<math.h>
 
-
 int main()
 {
-    int at[10],bt[10],rt[10],et,i,smallest;
-    int remain=0,n,time,wt=0,tat=0;
-
-    printf("Enter no of processes : ");
+    int n,i,total=0,x,counter=0,timeQuantum,wt=0,tat=0,at[101],bt[101],temp[101];
+    float avgWt,avgTat;
+    
+    printf("Enter the process: ");
     scanf("%d",&n);
-
-    for(int i=0;i<n;++i)
+    x=n;
+    for(i=0;i<n;++i)
     {
-        printf("Arrival time process process[%d] : ",i+1);
-        scanf("%d",&at[i]);
-
-        printf("Burst time process[%d] : ",i+1);
-        scanf("%d",&bt[i]);
-
-        rt[i]=bt[i];
+	    printf("Enter arrival time: ");
+	    scanf("%d",&at[i]);
+	    
+	    printf("Enter the burst time: ");
+	    scanf("%d",&bt[i]);
+	    
+	    temp[i]=bt[i];
     }
-    printf("\n\nProcess\t|Turnaround Time| Waiting Time\n\n");
-    rt[9]=9999;
-    for(time=0;remain!=n;time++)
+    printf("Enter the time quantum: ");
+    scanf("%d",&timeQuantum);
+    printf("\nProcess ID\t\tBurst Time\t Turnaround Time\t Waiting Time\n");
+    
+    for(time=0;i=0;x!=0)
     {
-        smallest=9;
-
-        for(int i=0;i<n;++i)
-        {
-            if(at[i]<=time && rt[i]<rt[smallest] && rt[i]>0)
-            {
-                smallest=i;
-            }
-        }
-        rt[smallest]--;
-        if(rt[smallest]==0)
-        {
-            remain++;
-            et=time+1;
-            printf("P[%d]\t|\t%d\t|\t%d\n",smallest+1,et-at[smallest],et-at[smallest]-bt[smallest]);
-
-            wt+=et-bt[smallest]-at[smallest];
-            tat+=et-at[smallest];
-        }
+    	if(temp[i]<=timeQuantum && temp[i]>0)
+    	{
+    		total+=temp[i];
+    		temp[i]=0;
+    		counter=1;
+    	}
+    	else if(temp[i]>0)
+    	{
+    		temp[i]-=timeQuantum;
+    		total+=timeQuantum;
+    	}
+    	if(temp[i]==0 && counter==1)
+    	{
+    		x--;
+    		printf("\nProcess[%d]\t\t%d\t\t %d\t\t\t %d",i+1,bt[i],total-at[i],total-at[i]-bt[i]);
+    		wt+=total-at[i]-bt[i];
+    		tat+=total-at[i];
+    		counter=0;
+    	}
+    	if(i==n-1)
+    	{
+    		i=0;
+    	}
+    	else if(at[i+1]<=n)
+    	{
+    		i++;
+    	}
+    	else
+    	{
+    		i=0;
+    	}
     }
-    printf("\nAverage Waiting Time= %f\n",wt*1.0/n);
-    printf("Avg Turnaround Time = %f",tat*1.0/n);
+    avgWt=wt*1.0/n;
+    avgTat=tat*1.0/n;
+    
+    printf("avg waiting time: %f",avgWt);
+    printf("\n");
+    printf("avg turn around time: %f",avgTat);
 }
