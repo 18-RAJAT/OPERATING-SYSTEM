@@ -38,6 +38,7 @@ int main()
         temp=bt[i];
         bt[i]=bt[pos];
         bt[pos]=temp;
+        
         temp=process[i];
         process[i]=process[pos];
         process[pos]=temp;
