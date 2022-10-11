@@ -3,7 +3,7 @@
 
 int main()
 {
-	int n,i,qt,count=0,temp,sq=0,bt[101],wt[101],tat[101],rt[101],ct[101];
+	int n,i,qt,count=0,temp,f=0,bt[101],wt[101],tat[101],rt[101],ct[101];
 	float avgwt=0,avgtat=0;
 
 	printf("Enter number of process");
@@ -39,8 +39,8 @@ int main()
 					temp=rt[i];
 					rt[i]=0;
 				}
-			sq+=temp;
-			tat[i]=sq;
+			f+=temp;
+			tat[i]=f;
 		}
 		if(n==count)
 		{
