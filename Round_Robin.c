@@ -13,6 +13,10 @@ int main()
 	{
 		printf("\nEnter Burst Time for process %d -- ", i+1);
 		scanf("%d",&bu[i]);
+
+		printf("Enter Arrival Time for process %d -- ", i+1);
+		scanf("%d",&wa[i]);
+		
 		ct[i]=bu[i];
 	}
 	printf("\nEnter the size of time slice -- ");
