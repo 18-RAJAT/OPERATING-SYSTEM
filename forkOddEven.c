@@ -11,6 +11,7 @@
 #define rf(i,e,s) for(long long int i=n;i>=0;--i)
 #define pass(a)  for(long long int i=n-1;i>=1;i-=2)
 
+
 int main()
 {
     int a[10]={1,2,3,4,5,6,7,8,9,10};
