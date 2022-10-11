@@ -17,7 +17,7 @@ int main()
         scanf("%d",&bt[i]);
         printf("Priority:");
         scanf("%d",&pr[i]);
-        p[i]=i+1;//process number
+        p[i]=i+1;//process num
     }
     for(i=0;i<n;++i)
     {
