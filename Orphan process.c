@@ -10,7 +10,7 @@ int main()
         printf("Parent process id=%d with child id=%d\n",getppid(),getpid());
     }
     else
-    {
+    { 
         sleep(20);
         printf("Child process=%d and parent id=%d\n",getpid(),getppid());
     }
