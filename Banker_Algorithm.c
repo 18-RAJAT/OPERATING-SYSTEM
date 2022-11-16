@@ -52,7 +52,7 @@ int main()
 			} 
 		} 
 	} 
-
+ 
 	printf("Th SAFE Sequence is as follows\n"); 
 	for (i = 0; i < n - 1; i++) 
 		printf(" P%d ->", ans[i]); 
