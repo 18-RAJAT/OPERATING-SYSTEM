@@ -1,14 +1,11 @@
 #include<stdio.h>
 #include<stdlib.h>
-
 int main()
-{
+{    
     int p[101],bt[101],wt[101],tat[101],pr[101],i,j,n,total=0,pos,temp;
     float avgwt,avgtat;
-
     printf("Enter the number of process: ");
     scanf("%d",&n);
-
     printf("Enter burst time and priority");
     for(i=0;i<n;++i)
     {
@@ -59,5 +56,6 @@ int main()
     avgtat=(float)total/n;
     printf("\n\nAverage Waiting Time=%f",avgwt);
     printf("\nAverage Turnaround Time=%f",avgtat);
-    return 0;
+    return 0; 
+
 }
