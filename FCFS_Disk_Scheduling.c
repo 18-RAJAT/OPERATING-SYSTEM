@@ -32,4 +32,4 @@ int main()
 	printf("Seek Time: %d\n", seek_time);
 }
 
-//sample input->n=7->82,170,43,140,24,16,190->initial head=50
+//sample input->n=7->82,170,43,140,24,16,190->initial head=50 answer=642
