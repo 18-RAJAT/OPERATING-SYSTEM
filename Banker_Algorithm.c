@@ -1,62 +1,84 @@
-#include <stdio.h> 
+#include<stdio.h>
 #include<stdlib.h>
-int main() 
-{ 
-	int n=5, r=3, i, j, k;
-	int alloc[5][3] = { { 0, 0, 1 }, 
-						{ 3, 0, 0 },  
-						{ 1, 0, 1 }, 
-						{ 2, 3, 2 },  
-						{ 0, 0, 3 } }; 
+#include<math.h>
 
-	int max[5][3] = { { 7, 6, 3 }, 
-					{ 3, 2, 2 },  
-					{ 8, 0, 2 },  
-					{ 2, 1, 2 },  
-					{ 5, 2, 3 } };  
+int main()
+{
+	int need[10][10],ans[10],index=0,x,y,flag,f[10];
+	int n,m,alloc[10][10],max[10][10],avail[10];
 
-	int avail[3] = { 2, 3, 2 };
-
-	int f[n], ans[n], ind = 0; 
-	for (k = 0; k < n; k++) { 
-		f[k] = 0; 
-	} 
-	int need[n][r]; 
-	for (i = 0; i < n; i++) { 
-		for (j = 0; j < r; j++) 
-			need[i][j] = max[i][j] - alloc[i][j]; 
-	} 
-	int y = 0; 
-	for (k = 0; k < 5; k++) 
-    { 
-		for (i = 0; i < n; i++) 
-        { 
-			if (f[i] == 0) 
-            { 
-				int flag = 0; 
-				for (j = 0; j < r; j++) { 
-					if (need[i][j] > avail[j])
-                    { 
-						flag = 1; 
-						break; 
-					} 
-				} 
-
-				if (flag == 0) 
-                { 
-					ans[ind++] = i; 
-					for (y = 0; y < r; y++) 
-						avail[y] += alloc[i][y]; 
-					f[i] = 1; 
-				} 
-			} 
-		} 
-	} 
- 
-	printf("Th SAFE Sequence is as follows\n"); 
-	for (i = 0; i < n - 1; i++) 
-		printf(" P%d ->", ans[i]); 
-	printf(" P%d", ans[n - 1]); 
-
-	return 0;
+	printf("Enter the number of process: \n");
+	scanf("%d",&n);
+	
+	printf("Enter the number of resources: \n");
+	scanf("%d",&m);
+	
+	printf("Enter the available resource matrix: \n");
+	for(int i=0;i<m;++i)
+	scanf("%d",&avail[i]);
+	
+	printf("Enter the allocation matrix: ");
+	for(int i=0;i<n;++i)
+	for(int j=0;j<m;++j)
+	scanf("%d",&alloc[i][j]);
+	
+	
+	printf("Enter the max matrix: ");
+	for(int i=0;i<n;++i)
+	for(int j=0;j<m;++j)
+	scanf("%d",&max[i][j]);
+	
+	for(int k=0;k<n;++k)
+	f[k]=0;
+	
+	for(int i=0;i<n;++i)
+	for(int j=0;j<m;++j)
+	
+	need[i][j]=max[i][j]-alloc[i][j];
+	
+	y=0;
+	for(int i=0;i<n;++i)
+	{
+		for(int j=0;j<n;++j)
+		{
+			if(f[j]==0)
+			{
+				flag=0;
+				
+				for(int k=0;k<m;++k)
+				{
+					if(need[j][k]>avail[k])
+					{
+						flag=1;
+						break;
+					}
+					if(flag==0)
+					{
+						ans[index++]=i;
+						for(int x=0;x<m;++x)
+						{
+							avail[x]+=alloc[j][x];
+							f[i]=1;
+						}
+					}
+				}
+			}
+		}
+	}
+	flag=1;
+	for(int i=0;i<n;i++)
+	{
+		if(f[i]==0)
+		{
+			flag=0;
+			printf("Not Sequence is possible\n");
+			break;
+		}
+	}
+	if(flag==1)
+	{
+		printf("The safe sequence is:\t\t");
+		for(int i=0;i<n;i++)
+			printf("%d\t",ans[i]);
+	}
 }
