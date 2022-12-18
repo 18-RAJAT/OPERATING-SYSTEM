@@ -1,85 +1,95 @@
 #include<stdio.h>
-#include<stdlib.h>
+#include<conio.h>
 #include<math.h>
+
+int findLru(int time[],int n)
+{
+    int minimum=time[0];
+    int position=0;
+
+    for(int i=0;i<n;++i)
+    {
+        if(time[i]<minimum)
+        {
+            minimum=time[i];
+            position=i;
+        }
+    }
+    return position;
+}
 
 int main()
 {
-	int need[10][10],ans[10],index=0,x,y,flag,f[10];
-	int n,m,alloc[10][10],max[10][10],avail[10];
+    int n,noFrame,noPage;
+    int frames[10],pages[10],time[10];
+    int ct=0,f1,f2,position,pageFault=0;
 
-	printf("Enter the number of process: \n");
-	scanf("%d",&n);
-	
-	printf("Enter the number of resources: \n");
-	scanf("%d",&m);
-	
-	printf("Enter the available resource matrix: \n");
-	for(int i=0;i<m;++i)
-	scanf("%d",&avail[i]);
-	
-	printf("Enter the allocation matrix: ");
-	for(int i=0;i<n;++i)
-		for(int j=0;j<m;++j)
-			scanf("%d",&alloc[i][j]);
-	printf("Enter the max matrix: ");
-	for(int i=0;i<n;++i)
-	for(int j=0;i<m;++j)
-	
-	scanf("%d",&max[i][j]);
-	
-	for(int k=0;k<n;++k)
-	f[k]=0;
-	
-	for(int i=0;i<n;++i)
-	for(int j=0;j<m;++j)
-	
-	need[i][j]=max[i][j]-alloc[i][j];
-	
-	y=0;
-	for(int i=0;i<n;++i)
-	{
-		for(int j=0;j<n;++j)
-		{
-			if(f[j]==0)
-			{
-				flag=0;
-				
-				for(int k=0;k<m;++k)
-				{
-					if(need[j][k]>avail[k])
-					{
-						flag=1;
-						break;
-					}
-					if(flag==0)
-					{
-						ans[index++]=i;
-						for(int x=0;x<m;++x)
-						{
-							avail[x]+=alloc[j][x];
-							f[i]=1;
-						}
-					}
-				}
-			}
-			flag=1;
-			for(int i=0;i<n;++i)
-			{
-				if(f[i]==0)
-				{
-					flag=0;
-					printf("Not Sequenced: ");
-				}
-			}
-			if(flag==1)
-			{
-				printf("Safe Sequence: ");
-				for(int i=0;i<n;++i)
-				{
-					printf("%d\t: "ans[i]);
-				}
-			}
-		}
-	}
-	
+    printf("Enter the number of frames: ");
+    scanf("%d",&noFrame);
+
+    printf("Enter the number of pages: ");
+    scanf("%d",&noPage);
+
+    printf("Enter the reference string: ");
+    for(int i=0;i<noPage;++i)
+    {
+        scanf("%d",&pages[i]);
+    }
+
+    for(int i=0;i<noFrame;++i)
+    {
+        frames[i]=-1;
+    }
+    for(int i=0;i<noPage;++i)
+    {
+        f1=0;
+        f2=0;
+
+        for(int j=0;j<noFrame;++j)
+        {
+            if(frames[j]==pages[i])
+            {
+                // f1=1;
+                // f2=1;
+                ct++;
+                time[j]=ct;
+                f1=1;
+                f2=1;
+                break;
+            }
+        }
+
+        if(f1==0)
+        {
+            for(int j=0;j<noFrame;++j)
+            {
+                if(frames[j]==-1)
+                {
+                    ct++;
+                    pageFault++;
+                    frames[j]=pages[i];
+                    time[j]=ct;
+                    f2=1;
+                    break;
+                }
+            }
+        }
+        if(f2==0)
+        {
+            //lru call
+            position=findLru(time,noFrame);
+            // frames[position]=pages[i];
+            // time[position]=ct;
+            ct++;
+            pageFault++;
+            frames[position]=pages[i];
+            time[position]=ct;
+        }
+        printf("\n");
+        for(int i=0;i<noFrame;++i)
+        {
+            printf("%d\t",frames[i]);
+        }
+    }
+    printf("Total page fault: %d",pageFault);
 }

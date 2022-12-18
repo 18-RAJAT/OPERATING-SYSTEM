@@ -1,78 +1,95 @@
 #include<stdio.h>
-    
+#include<conio.h>
+#include<math.h>
+
+int findLru(int time[],int n)
+{
+    int minimum=time[0];
+    int position=0;
+
+    for(int i=0;i<n;++i)
+    {
+        if(time[i]<minimum)
+        {
+            minimum=time[i];
+            position=i;
+        }
+    }
+    return position;
+}
+
 int main()
 {
-    int m, n, position, k, l;
-    int a = 0, b = 0, page_fault = 0;
-    
-    int total_frames = 3;
-    int frames[total_frames];
-    int temp[total_frames];
-    int pages[] = {1, 2, 3, 2, 1, 5, 2, 1, 6, 2, 5, 6, 3, 1, 3, 6, 1, 2, 4, 3};
-    int total_pages = sizeof(pages)/sizeof(pages[0]);
+    int n,noFrame,noPage;
+    int frames[10],pages[10],time[10];
+    int ct=0,f1,f2,position,pageFault=0;
 
-    for(m = 0; m < total_frames; m++){
-            frames[m] = -1;
-    }
-    
-    for(n = 0; n < total_pages; n++)
+    printf("Enter the number of frames: ");
+    scanf("%d",&noFrame);
+
+    printf("Enter the number of pages: ");
+    scanf("%d",&noPage);
+
+    printf("Enter the reference string: ");
+    for(int i=0;i<noPage;++i)
     {
-        printf("%d: ", pages[n]);
-            a = 0, b = 0;
-            for(m = 0; m < total_frames; m++)
-            {
-                if(frames[m] == pages[n])
-                {
-                        a = 1;
-                        b = 1;
-                        break;
-                }
-            }
-            if(a == 0)
-            {
-                for(m = 0; m < total_frames; m++)
-                {
-                    if(frames[m] == -1)
-                    {
-                        frames[m] = pages[n];
-                        b = 1;
-                        page_fault++;
-                        break;
-                    }
-                }
-            }
-            if(b == 0)
-            {
-                for(m = 0; m < total_frames; m++)
-                {
-                    temp[m] = 0;
-                }
-                for(k = n - 1, l = 1; l <= total_frames - 1; l++, k--)
-                {
-                    for(m = 0; m < total_frames; m++)
-                    {
-                        if(frames[m] == pages[k])
-                        {
-                            temp[m] = 1;
-                        }
-                    }
-                }
-                for(m = 0; m < total_frames; m++)
-                {
-                    if(temp[m] == 0)
-                        position = m;
-                }
-                frames[position] = pages[n];
-                page_fault++;
-            }
-            
-            for(m = 0; m < total_frames; m++)
-            {
-                printf("%d\t", frames[m]);
-            }
-            printf("\n");
+        scanf("%d",&pages[i]);
     }
-    printf("\nTotal Number of Page Faults:\t%d\n", page_fault);
-    
-    return 0;
+
+    for(int i=0;i<noFrame;++i)
+    {
+        frames[i]=-1;
+    }
+    for(int i=0;i<noPage;++i)
+    {
+        f1=0;
+        f2=0;
+
+        for(int j=0;j<noFrame;++j)
+        {
+            if(frames[j]==pages[i])
+            {
+                // f1=1;
+                // f2=1;
+                ct++;
+                time[j]=ct;
+                f1=1;
+                f2=1;
+                break;
+            }
+        }
+
+        if(f1==0)
+        {
+            for(int j=0;j<noFrame;++j)
+            {
+                if(frames[j]==-1)
+                {
+                    ct++;
+                    pageFault++;
+                    frames[j]=pages[i];
+                    time[j]=ct;
+                    f2=1;
+                    break;
+                }
+            }
+        }
+        if(f2==0)
+        {
+            //lru call
+            position=findLru(time,noFrame);
+            // frames[position]=pages[i];
+            // time[position]=ct;
+            ct++;
+            pageFault++;
+            frames[position]=pages[i];
+            time[position]=ct;
+        }
+        printf("\n");
+        for(int i=0;i<noFrame;++i)
+        {
+            printf("%d\t",frames[i]);
+        }
+    }
+    printf("Total page fault: %d",pageFault);
 }
