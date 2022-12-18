@@ -26,33 +26,33 @@ int main()
     {
         temp[i]=-1;
     }
+
     for(i=0;i<page;++i)
     {
-        f=0;
+        f=1;
         for(j=0;j<frame;++j)
         {
-        	if(refStr[i]==temp[j])
-        	{
-        		f++;
-        		pageFault--;
-        	}
+            if(temp[j]==refStr[i])
+            {
+                f=0;
+                break;
+            }
         }
-        pageFault++;
-        if((pageFault<=frame)&&(f==0))
+        if(f==1)
         {
-        	// int j;
-        	temp[i]=refStr[i];
-        }
-        else if(f==0)
-        {
-        	// int j;
-        	temp[(pageFault-1)%frame]=refStr[i];
-        }
-        printf("\n");
-        for(i=0;i<frame;++i)
-        {
-        	printf("%d\t",temp[i]);
+            for(j=0;j<frame-1;++j)
+            {
+                temp[j]=temp[j+1];
+            }
+            temp[j]=refStr[i];
+            pageFault++;
         }
     }
-    printf("\nTotal Page Faults:\t%d\n", pageFault);
+    // for(i=0;i<frame;++i)
+    // {
+    //     printf("%d\n\t",temp[i]);
+    // }
+    printf("Page Fault: %d",pageFault);
+    return 0;
+
 }
