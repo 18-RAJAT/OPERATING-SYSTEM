@@ -1,58 +1,86 @@
+/*
+SCAN - Disk Scheduling Algorithm (Elevator)
+scans down towards the nearest end and then when it hits the bottom,
+it scans up servicing the requests that it didn't get going down.
+If a request comes in after it has been scanned it will not be serviced
+until the process comes back down or moves back up.
+*/
+
+#define maxi 100
+#define mini 0
 #include<stdio.h>
 #include<stdlib.h>
 #include<math.h>
 
+
 int main()
 {
-    int n,refStr[10],pageFault=0,frame,page;
-    int f,i,j;
+    int queue[1001];
+    int head,max,size,sum,temp;
+    int locationOfDiskHead;
 
-    printf("Enter the number of pages: ");
-    scanf("%d",&page);
+    printf("Enter the size of queue: ");
+    scanf("%d",&size);
 
-    printf("Enter the reference string: ");
-    for(i=0;i<page;++i)
+    printf("Enter the head position: ");
+    scanf("%d",&head);
+
+    printf("Enter the disks\n");
+    for(int i=0;i<size;++i)
     {
-        printf("Value No.[%d]:\t",i+1);
-        scanf("%d",&refStr[i]);
+        scanf("%d",&queue[i]);
     }
-    printf("Enter the frame: ");
-    {
-        scanf("%d",&frame);
-    }
+    queue[size]=head;
+    size++;
 
-    int temp[frame];
-    for(i=0;i<frame;++i)
+    for(int i=0;i<size;++i)
     {
-        temp[i]=-1;
-    }
-
-    for(i=0;i<page;++i)
-    {
-        f=1;
-        for(j=0;j<frame;++j)
+        for(int j=i;j<size;++j)
         {
-            if(temp[j]==refStr[i])
+            if(queue[i]>queue[j])
             {
-                f=0;
-                break;
+                //sort the queue
+                temp=queue[i];
+                queue[i]=queue[j];
+                queue[j]=temp;
             }
         }
-        if(f==1)
+    }
+    max=queue[size-1];
+
+    //locate head in the queue
+    for(int i=0;i<size;++i)
+    {
+        if(head==queue[i])
         {
-            for(j=0;j<frame-1;++j)
-            {
-                temp[j]=temp[j+1];
-            }
-            temp[j]=refStr[i];
-            pageFault++;
+            locationOfDiskHead=i;
+            break;
         }
     }
-    // for(i=0;i<frame;++i)
-    // {
-    //     printf("%d\n\t",temp[i]);
-    // }
-    printf("Page Fault: %d",pageFault);
+    if(abs(head-mini)<=abs(head-maxi))
+    {
+        for(int i=locationOfDiskHead;i>=0;--i)
+        {
+            printf("%d -> ",queue[i]);
+        }
+        // printf("0 -> ");
+        for(int j=locationOfDiskHead+1;j<size;++j)
+        {
+            printf("%d -> ",queue[j]);
+        }
+    }
+    else
+    {
+        for(int j=locationOfDiskHead+1;j<size;++j)
+        {
+        	printf("%d -> ",queue[j]);
+        }
+        for(int j=locationOfDiskHead;j>=0;--j)
+        {
+        	printf("%d -> ",queue[j]);
+        }
+    }
+    sum=head+max;
+    printf("Movement of total cylinders %d",sum);
     return 0;
-
 }
