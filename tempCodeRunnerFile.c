@@ -64,22 +64,26 @@ int main()
     			}
     		}
     	}
-        for(i=1,j=0;j<temp1;++i,++j)
+        // for(i=1,j=0;j<temp1;++i,++j)
+        for(int i=1,j=0;j<temp1;++i,++j)
         {
             // for(int j=0;j<temp1;++j)
-            // {
+            for(int j=0;j<temp1;++j)
+            {
                 queue1[i]=queue2[j];
-            // }
+            }
         }
         queue1[i]=max;
         queue1[i+1]=0;
     	
-        for(i=temp1+3,j=0;j<temp2;++i,++j)
+        // for(i=temp1+3,j=0;j<temp2;++i,++j)
+        for(int i=temp1+3;j<temp2;++i,++j)
         {
             // for(int j=0;j<temp2;++j)
-            // {
+            for(int j=0;j<temp2;++j)
+            {
                 queue1[i]=queue3[j];
-            // }
+            }
         }
         queue1[0]=head;
     	for(j=0;j<=n+1;++j)
@@ -98,15 +102,3 @@ int main()
 // Input: I/O requests - { 19, 80, 134, 11, 110, 23, 162, 64 }
 
 // Initial head position - 50
-
-// int absoluteValue(int n)
-// {
-//     if(n>0)
-//     {
-//         return n;
-//     }
-//     else
-//     {
-//         return -n;
-//     }
-// }
