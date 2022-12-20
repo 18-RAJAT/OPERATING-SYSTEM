@@ -46,7 +46,7 @@ int main()
     char buffer[101];
 
     //Getting some id for shared memory segment
-    int smid=shmget((key_t)111,1024,0666);
+    int shmid=shmget((key_t)111,1024,0666);
 
     printf("Key of shared memory segment: %d\n",shmid);
 
