@@ -2,34 +2,43 @@
 	Disk Scheduling
 	First Come First Serve
 */
-#include "stdio.h"
-#include "stdlib.h"
-#include "stdbool.h"
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<math.h>
+
 int main()
 {
-	int i,no_of_requests,initial_head;
-	printf("Enter the number of requests: ");
-	scanf("%d",&no_of_requests);
-	int request[no_of_requests];
-	printf("Enter the requests: ");
-	for (i = 0; i < no_of_requests; ++i)
+	int noOfRequests,head;
+	printf("Enter the number of requests:= ");
+	scanf("%d",&noOfRequests);
+	
+	printf("Enter the number of requests:\n");
+	int req[noOfRequests];
+	for(int i=0;i<noOfRequests;++i)
 	{
-		scanf("%d",&request[i]);
+		scanf("%d",&req[i]);
 	}
-	printf("Enter initial position of R/W head: ");
-	scanf("%d",&initial_head);
-	int seek_time=0;
-	printf("%d -> ",initial_head );
-	for(i=0;i<no_of_requests;i++)
+	
+	printf("Enter the initial position of R/W head:= ");
+	scanf("%d",&head);
+	
+	int seekTime=0;
+	printf("%d: ",head);
+	for(int i=0;i<noOfRequests;++i)
 	{
-		if(i == no_of_requests-1)
-			printf("%d\n", request[i] );
+		if(i==noOfRequests-1)
+		{
+			printf("%d\n",req[i]);
+		}
 		else
-			printf("%d -> ", request[i] );
-		seek_time += abs(request[i] - initial_head);
-		initial_head = request[i];
+		{
+			printf("%d---: ",req[i]);
+		}
+		seekTime+=abs(req[i]-head);
+		head=req[i];
 	}
-	printf("Seek Time: %d\n", seek_time);
+	printf("Seek time: %d\n",seekTime);
 }
 
 //sample input->n=7->82,170,43,140,24,16,190->initial head=50 answer=642
