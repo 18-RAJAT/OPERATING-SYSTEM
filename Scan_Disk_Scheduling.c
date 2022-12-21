@@ -89,12 +89,30 @@ int main()
     		
     		printf("Disk head moves from %d to %d with seek %d\n",queue1[j],queue1[j+1],diff);
     	}
+
+		//Total movement of the disk head
+
+		for(i=0;i<=n+1;++i)
+		{
+			printf("%d\t",queue1[i]);
+		}
+		
     	
     	printf("Total seek time %d\n",seek);
     	
     	avg=seek/n;
     	printf("Avg seek time is %f\n",avg);
 }
-// Input: I/O requests - { 19, 80, 134, 11, 110, 23, 162, 64 }
+// Input: I/O requests - { 95, 180, 34, 119, 11, 123, 62, 64 }
 
 // Initial head position - 50
+
+/*
+     The total head movement is calculated as: 
+
+= (62 - 50) + (64 - 62) + (95 - 64) + (119 - 95) + (123 - 119) + (180 - 123) + (199 - 180) + (199 - 0) + (11 - 0) + (34 - 11)
+
+= 12 + 2 + 31 + 24 + 4 + 57 + 19 + 199 + 11 + 23
+
+= 382
+*/

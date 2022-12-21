@@ -3,7 +3,7 @@
 int main()
 {    
     int p[101],bt[101],wt[101],tat[101],pr[101],i,j,n,total=0,pos,temp;
-    float avgwt,avgtat;
+    float avgWt,avgTat;
     printf("Enter the number of process: ");
     scanf("%d",&n);
     printf("Enter burst time and priority");
@@ -44,7 +44,7 @@ int main()
             wt[i]+=bt[j];
         total+=wt[i];
     }
-    avgwt=(float)total/n;
+    avgWt=(float)total/n;
     total=0;
     printf("\nProcess\t    Burst Time\t    Waiting Time\tTurnaround Time");
     for(i=0;i<n;++i)
@@ -53,9 +53,9 @@ int main()
         total+=tat[i];
         printf("\nP[%d]\t\t  %d\t\t    %d\t\t\t%d",p[i],bt[i],wt[i],tat[i]);
     }
-    avgtat=(float)total/n;
-    printf("\n\nAverage Waiting Time=%f",avgwt);
-    printf("\nAverage Turnaround Time=%f",avgtat);
+    avgTat=(float)total/n;
+    printf("\n\nAverage Waiting Time=%f",avgWt);
+    printf("\nAverage Turnaround Time=%f",avgTat);
     return 0; 
 
 }
