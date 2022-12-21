@@ -54,8 +54,9 @@ int main()
         printf("\nP[%d]\t\t  %d\t\t    %d\t\t\t%d",p[i],bt[i],wt[i],tat[i]);
     }
     avgTat=(float)total/n;
+
     printf("\n\nAverage Waiting Time=%f",avgWt);
     printf("\nAverage Turnaround Time=%f",avgTat);
+    
     return 0; 
-
 }
