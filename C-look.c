@@ -60,9 +60,5 @@ int main()
     	cylinder+=abs(head-item[i]);
     	head=item[i];
     }
-
-    //seek time find
-    seekTime=cylinder;
-    printf("\n\nSeek time: %d\n\n",seekTime);
     printf("\n\nCylinder movement: %d\n\n", cylinder);
 }
