@@ -1,83 +1,63 @@
-//preemtive priority scheduling
-
 #include<stdio.h>
-#include<conio.h>
+#include<stdlib.h>
 
 int main()
 {
-	int p[20],bt[10],wt[10],tat[10],pr[10],pos,temp,total=0,i,j,n;
-	
-	float awt,atat;
-	printf("Process:");scanf("%d",&n);
-	printf("Enter the burst time and priority");
+	int n,i,qt,count=0,temp,f=0,bt[101],wt[101],tat[101],rt[101],ct[101];
+	float avgwt=0,avgtat=0;
+
+	printf("Enter number of process");
+	scanf("%d",&n);
+
+	printf("Enter the burst time");
 	for(i=0;i<n;++i)
 	{
-		printf("Enter the burst time :");
 		scanf("%d",&bt[i]);
-		
-		printf("Enter the priority :");
-		scanf("%d",&pr[i]);
-		
-		p[i]=i+1;		
+		rt[i]=bt[i];
 	}
-	for(i=0;i<n;++i)
+	printf("Time quantum");
+	scanf("%d",&qt);
+
+
+	while(1)
 	{
-		//ith value
-		pos=i;
-		for(j=i+1;j<n;++j)
+		for(i=0,count=0;i<n;++i)
 		{
-			if(pr[j]<pr[pos])
+			temp=qt;
+			if(rt[i]==0)
 			{
-				//if greater pos<-j;
-				pos=j;
+				count++;
+				continue;
 			}
+			if(rt[i]>qt)
+			{
+				rt[i]-=qt;
+			}
+			else
+				if(rt[i]>=0)
+				{
+					temp=rt[i];
+					rt[i]=0;
+				}
+			f+=temp;
+			tat[i]=f;
 		}
-		temp=pr[i];
-		pr[i]=bt[pos];
-		bt[pos]=temp;
-		
-		temp=bt[i];
-		bt[i]=bt[pos];
-		bt[pos]=temp;
-		
-		temp=p[i];
-		p[i]=p[pos];
-		p[pos]=temp;
+		if(n==count)
+		{
+			break;
+		}
 	}
-	wt[0]=0;
-	
-	
-	
-	for(i=1;i<n;++i)
-	{
-		wt[i]=0;
-		for(j=0;j<i;++j)
-		wt[i]+=bt[j];
-		total+=wt[i];
-	}
-	awt=total/n;
-		
-	total=0;
-	printf("\nProcess\t    Burst Time\t    Waiting Time\tTurnaround Time");
+	printf("\nprocess\t\tBurst time\t\tTurnaround time\t\tWaiting time");
+
 	for(i=0;i<n;++i)
 	{
-		tat[i]=bt[i]+wt[i];
-		total+=tat[i];
-		printf("\nP[%d]\t\t  %d\t\t    %d\t\t\t%d",p[i],bt[i],wt[i],tat[i]);
+		wt[i]=tat[i]-bt[i];
+		avgwt+=wt[i];
+		avgtat+=tat[i];
+		printf("\n%d\t\t%d\t\t\t\t%d\t\t\t%d",i+1,bt[i],tat[i],wt[i]);
 	}
-	atat=total/n;
-	printf("\n\nAverage Waiting Time=%f",awt);
-    printf("\nAverage Turnaround Time=%f",atat);
+	avgwt/=n;
+	avgtat/=n;
+	printf("\nAverage waiting time=%f",avgwt);
+	printf("\nAverage turnaround time=%f",avgtat);
 }
-
-
-
-
-
-
-
-
-
-
-
-
