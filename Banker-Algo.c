@@ -6,7 +6,8 @@
 
 int main()
 {
-    int i,j,k,ans[10],need[10][10],alloc[10][10],max[10][10],avail[10],f[10],flag,t,n,m,ind=0;
+    int i,j,k,ans[10],need[10][10],alloc[10][10],max[10][10],avail[10],f[10];
+    int flag,t,n,m,ind=0;
 
     printf("Enter the no of Process: ");
     {
