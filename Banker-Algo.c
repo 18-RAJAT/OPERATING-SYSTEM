@@ -18,7 +18,7 @@ int main()
     {
         scanf("%d",&m);
     }
-    printf("Avaliable Matrix: ");
+    printf("Available Matrix: ");
     for(i=0;i<m;++i)
     {
         scanf("%d",&avail[i]);
