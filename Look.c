@@ -3,29 +3,23 @@
 
 int main()
 {
-    int i,j,n,head=0,item[20],dst[20];
-    int limit,cylinders=0;
-
-    printf("Locations: ");
+    int n, i, j, head, item[20], dst[20];
+    int cylinders=0;
+    printf("Enter no. of locations:");
     scanf("%d",&n);
-
-    printf("Head: ");
+    printf("Enter position of head:");
     scanf("%d",&head);
+    printf("Enter elements of disk queue:");
 
-    printf("Limit: ");
-    scanf("%d",&limit);
-
-    printf("Disk Queue: ");
     for(i=0;i<n;i++)
     {
         scanf("%d",&item[i]);
         dst[i]=(head-item[i]);
     }
-
     //Selection Sort
-    for(i=0;i<n-1;++i)
+    for(i=0;i<n-1;i++)
     {
-        for(j=i+1;j<n;++j)
+        for(j=i+1;j<n;j++)
         {
             if(dst[j]>dst[i])
             {
@@ -39,7 +33,8 @@ int main()
             }
         }
     }
-    for(i=0;i<n;++i)
+
+    for(i=0;i<n;i++)
     {
         if(item[i]>=head)
         {
@@ -47,21 +42,23 @@ int main()
             break;
         }
     }
-    //disk allocation order
-    printf("Order is");
-    for(i=j;i<n;++i)
+
+    printf("j=%d", j);
+    printf("\n\nOrder of disk allocation is as follows:\n");
+    for(i=j;i<n;i++)
     {
-        printf(" -> %d",item[i]);
-        cylinders+=abs(head-item[i]);
+        printf(" -> %d", item[i]);
+        cylinders+= abs(head-item[i]);
         head=item[i];
+
     }
-    //change 
-    // for(int i=j-1;i>=0;--i)
-    for(i=0;i<j;++i)
+    for(i=j-1;i>=0;i--)
     {
-        printf(" -> %d",item[i]);
-        cylinders+=abs(head-item[i]);
+        printf(" -> %d", item[i]);
+        cylinders+= abs(head-item[i]);
         head=item[i];
+
     }
-    printf("\nTotal cylinders: %d",cylinders);
+
+    printf("\n\nCylinder movement: %d\n\n", cylinders );
 }

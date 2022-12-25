@@ -5,7 +5,7 @@ int main()
 {
     int n,cylinder=0,head;
     int i,j;
-    int item[20],dist[20];int seekTime=0;
+    int item[20],dist[20];
 
     printf("Enter the locations: \n");
     scanf("%d",&n);
