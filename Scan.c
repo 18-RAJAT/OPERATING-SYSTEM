@@ -36,6 +36,7 @@ int main(){
                 ind=j;
             }
         }
+        
         swap(disk,i,ind);
         if(disk[i]>=head && start<0)start=i-1;
     }
