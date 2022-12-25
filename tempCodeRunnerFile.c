@@ -1,58 +1,77 @@
 #include<stdio.h>
-#include<stdlib.h>
-#include<math.h>
 
 int main()
 {
-    int n,refStr[20],pageFault=0,frame,page;
-    int f,i,j;
+    int nFrame,n,frames[30],pages[30],cnt=0,time[30],flag1,flag2,i,j,pos,pageFault=0;
+    printf("Enter number of frames: ");
+    scanf("%d",&nFrame);
 
-    printf("Enter the number of pages: ");
-    scanf("%d",&page);
+    printf("Enter number of pages: ");
+    scanf("%d",&n);
 
-    printf("Enter the reference string: ");
-    for(i=0;i<page;++i)
-    {
-        printf("Value No.[%d]:\n",i+1);
-        scanf("%d",&refStr[i]);
-    }
-    printf("Enter the frame: ");
-    {
-        scanf("%d",&frame);
-    }
+    printf("Enter page numbers: ");
 
-    int temp[frame];
-    for(i=0;i<frame;++i)
-    {
-        temp[i]=-1;
-    }
+    for(i=0;i<n;++i)
+        scanf("%d",&pages[i]);
 
-    for(i=0;i<page;++i)
+    for(i=0;i<nFrame;++i)
+        frames[i]=-1;
+
+    for(i=0;i<n;++i)
     {
-        f=1;
-        for(j=0;j<frame;++j)
+        flag1=flag2=0;
+
+        for(j=0;j<nFrame;++j)
         {
-            if(temp[j]==refStr[i])
+            if(pages[i]==frames[j])
             {
-                f=0;
+                cnt++;
+                time[j]=cnt;
+                flag1=flag2=1;
                 break;
             }
         }
-        if(f==1)
-        {
-            for(j=0;j<frame-1;++j)
-            {
-                temp[j]=temp[j+1];
-            }
-            temp[j]=refStr[i];
-            pageFault++;
-        }
-    }
-    // for(i=0;i<frame;++i)
-    // {
-    //     printf("%d\n\t",temp[i]);
-    // }
-    printf("Page Fault: %d",pageFault);
-    return 0;
 
+        if(flag1==0)
+        {
+            for(j=0;j<nFrame;++j)
+            {
+                if(frames[j]==-1)
+                {
+                    cnt++;
+                    pageFault++;
+                    frames[j]=pages[i];
+                    time[j]=cnt;
+                    flag2=1;
+                    break;
+                }
+            }
+        }
+
+        if(flag2==0)
+        {
+            pos=0;
+            for(j=1;j<nFrame;++j)
+            {
+                if(time[j]<time[pos])
+                    pos=j;
+            }
+
+            cnt++;
+            pageFault++;
+            frames[pos]=pages[i];
+            time[pos]=cnt;
+        }
+
+        printf("\n");
+
+        for(j=0;j<nFrame;++j)
+            printf("%d\t",frames[j]);
+    }
+
+    printf("\n\nTotal Page Faults = %d",pageFault);
+    printf("\nMiss Ratio = %f",(pageFault/(1.0*n)));
+    printf("\nHit Ratio = %f",1-(pageFault/(1.0*n)));
+
+    return 0;
 }

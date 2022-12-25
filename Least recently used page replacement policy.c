@@ -1,95 +1,77 @@
 #include<stdio.h>
-#include<conio.h>
-#include<math.h>
-
-int findLru(int time[],int n)
-{
-    int minimum=time[0];
-    int position=0;
-
-    for(int i=0;i<n;++i)
-    {
-        if(time[i]<minimum)
-        {
-            minimum=time[i];
-            position=i;
-        }
-    }
-    return position;
-}
 
 int main()
 {
-    int n,noFrame,noPage;
-    int frames[10],pages[10],time[10];
-    int ct=0,f1,f2,position,pageFault=0;
+    int nFrame,n,frames[30],pages[30],cnt=0,time[30],flag1,flag2,i,j,pos,pageFault=0;
+    printf("Enter number of frames: ");
+    scanf("%d",&nFrame);
 
-    printf("Enter the number of frames: ");
-    scanf("%d",&noFrame);
+    printf("Enter number of pages: ");
+    scanf("%d",&n);
 
-    printf("Enter the number of pages: ");
-    scanf("%d",&noPage);
+    printf("Enter page numbers: ");
 
-    printf("Enter the reference string: ");
-    for(int i=0;i<noPage;++i)
-    {
+    for(i=0;i<n;++i)
         scanf("%d",&pages[i]);
-    }
 
-    for(int i=0;i<noFrame;++i)
-    {
+    for(i=0;i<nFrame;++i)
         frames[i]=-1;
-    }
-    for(int i=0;i<noPage;++i)
-    {
-        f1=0;
-        f2=0;
 
-        for(int j=0;j<noFrame;++j)
+    for(i=0;i<n;++i)
+    {
+        flag1=flag2=0;
+
+        for(j=0;j<nFrame;++j)
         {
-            if(frames[j]==pages[i])
+            if(pages[i]==frames[j])
             {
-                // f1=1;
-                // f2=1;
-                ct++;
-                time[j]=ct;
-                f1=1;
-                f2=1;
+                cnt++;
+                time[j]=cnt;
+                flag1=flag2=1;
                 break;
             }
         }
 
-        if(f1==0)
+        if(flag1==0)
         {
-            for(int j=0;j<noFrame;++j)
+            for(j=0;j<nFrame;++j)
             {
                 if(frames[j]==-1)
                 {
-                    ct++;
+                    cnt++;
                     pageFault++;
                     frames[j]=pages[i];
-                    time[j]=ct;
-                    f2=1;
+                    time[j]=cnt;
+                    flag2=1;
                     break;
                 }
             }
         }
-        if(f2==0)
+
+        if(flag2==0)
         {
-            //lru call
-            position=findLru(time,noFrame);
-            // frames[position]=pages[i];
-            // time[position]=ct;
-            ct++;
+            pos=0;
+            for(j=1;j<nFrame;++j)
+            {
+                if(time[j]<time[pos])
+                    pos=j;
+            }
+
+            cnt++;
             pageFault++;
-            frames[position]=pages[i];
-            time[position]=ct;
+            frames[pos]=pages[i];
+            time[pos]=cnt;
         }
+
         printf("\n");
-        for(int i=0;i<noFrame;++i)
-        {
-            printf("%d\t",frames[i]);
-        }
+
+        for(j=0;j<nFrame;++j)
+            printf("%d\t",frames[j]);
     }
-    printf("Total page fault: %d",pageFault);
+
+    printf("\n\nTotal Page Faults = %d",pageFault);
+    printf("\nMiss Ratio = %f",(pageFault/(1.0*n)));
+    printf("\nHit Ratio = %f",1-(pageFault/(1.0*n)));
+
+    return 0;
 }
