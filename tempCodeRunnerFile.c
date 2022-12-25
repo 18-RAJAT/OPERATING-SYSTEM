@@ -4,58 +4,55 @@
 
 int main()
 {
-    int n,i,j,min,head,item[20],dst[20];
-    int cylinders=0;
-    printf("Locations: ");
-    scanf("%d",&n);
+    int n,refStr[20],pageFault=0,frame,page;
+    int f,i,j;
 
-    printf("Head: ");
-    scanf("%d",&head);
-    
-    printf("Disk Queue: ");
-    for(i=0;i<n;i++)
+    printf("Enter the number of pages: ");
+    scanf("%d",&page);
+
+    printf("Enter the reference string: ");
+    for(i=0;i<page;++i)
     {
-        scanf("%d",&item[i]);
-        // dst[i]=(head-item[i]);
+        printf("Value No.[%d]:\n",i+1);
+        scanf("%d",&refStr[i]);
     }
-    //Selection Sort
-    int ct=n;
-    // printf("order of disk is as follows:\n");
-    while(ct>0)
+    printf("Enter the frame: ");
     {
-        // printf("Distance Array");
-        for(i=0;i<n;++i)
-        {
-            if(item[i]==-1)continue;
+        scanf("%d",&frame);
+    }
 
-            dst[i]=abs(head-item[i]);
-            // min=i;
-            // break;
-            printf("%d ",dst[i]);
-        }
-        //selection sort 
-        for(i=0;i<n;++i)
+    int temp[frame];
+    for(i=0;i<frame;++i)
+    {
+        temp[i]=-1;
+    }
+
+    for(i=0;i<page;++i)
+    {
+        f=1;
+        for(j=0;j<frame;++j)
         {
-            if(item[i]!=-1)
+            if(temp[j]==refStr[i])
             {
-                min=i;
+                f=0;
                 break;
-                // continue;
             }
         }
-        for(i=1;i<n;++i)
+        if(f==1)
         {
-            if(item[i]==-1)continue;
-
-            if(dst[min]>dst[i])min=i;
+            for(j=0;j<frame-1;++j)
+            {
+                temp[j]=temp[j+1];
+            }
+            temp[j]=refStr[i];
+            pageFault++;
         }
-        // printf("Minimum : %d",min);
-        cylinders+=dst[min];
-        // printf(" -> %d",item[min]);
-        head=item[min];
-        item[min]=-1;
-        ct--;
     }
-    printf("\n\n");
-    printf("Cylinder movement: %d \t", cylinders );
+    // for(i=0;i<frame;++i)
+    // {
+    //     printf("%d\n\t",temp[i]);
+    // }
+    printf("Page Fault: %d",pageFault);
+    return 0;
+
 }

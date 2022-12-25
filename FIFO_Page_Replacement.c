@@ -4,7 +4,7 @@
 
 int main()
 {
-    int n,refStr[10],pageFault=0,frame,page;
+    int n,refStr[30],pageFault=0,frame,page;
     int f,i,j;
 
     printf("Enter the number of pages: ");
